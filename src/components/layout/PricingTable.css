@@ -1,0 +1,218 @@
+:root {
+  --h1color: #6e768d;
+  --h3color: #b4bdc6;
+  --widthoftable: 31%;
+  --bgctables: #ffffff;
+  --bgfontcolor: #717787;
+  --primary-color: #71ce73;
+  --primary-shadow: rgba(102, 172, 100, 1);
+  --feature-check: #74ce6a;
+  --popular-badge: #3bbdee;
+}
+
+.pricingTable {
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.pricingTable-title {
+  text-align: center;
+  color: var(--h1color);
+  font-size: 3em;
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+}
+
+.pricingTable-subtitle {
+  text-align: center;
+  color: var(--h3color);
+  font-size: 1.8em;
+  letter-spacing: 0.04em;
+  margin-bottom: 60px;
+}
+
+.pricingTable-firstTable {
+  list-style: none;
+  padding: 0 2em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+.pricingTable-firstTable_table {
+  vertical-align: middle;
+  width: var(--widthoftable);
+  background-color: var(--bgctables);
+  padding: 0 30px 40px;
+  text-align: center;
+  max-width: 320px;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 40px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pricingTable-firstTable_table.popular {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pricingTable-firstTable_table__header {
+  font-size: 1.6em;
+  padding: 40px 0;
+  border-bottom: 2px solid #ebedec;
+  letter-spacing: 0.03em;
+  color: var(--h1color);
+}
+
+.pricingTable-firstTable_table__pricing {
+  font-size: 3em;
+  padding: 30px 0;
+  border-bottom: 2px solid #ebedec;
+  line-height: 0.7;
+  color: var(--bgfontcolor);
+}
+
+.pricingTable-firstTable_table__pricing span:first-of-type {
+  font-size: 0.35em;
+  vertical-align: top;
+  letter-spacing: 0.15em;
+}
+
+.pricingTable-firstTable_table__pricing span:last-of-type {
+  vertical-align: bottom;
+  font-size: 0.3em;
+  letter-spacing: 0.04em;
+  padding-left: 0.2em;
+}
+
+.pricingTable-firstTable_table__options {
+  list-style: none;
+  padding: 15px;
+  font-size: 0.9em;
+  border-bottom: 2px solid #ebedec;
+  color: var(--bgfontcolor);
+  text-align: left;
+}
+
+.pricingTable-firstTable_table__options li {
+  padding: 8px 0;
+}
+
+.pricingTable-firstTable_table__options li:before {
+  content: "✓";
+  display: inline-flex;
+  margin-right: 15px;
+  color: white;
+  background-color: var(--feature-check);
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  font-size: 0.8em;
+  padding: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pricingTable-firstTable_table__getstart {
+  color: white;
+  border: 0;
+  background-color: var(--primary-color);
+  margin-top: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 15px 25px;
+  box-shadow: 0px 3px 0px 0px var(--primary-shadow);
+  letter-spacing: 0.07em;
+  transition: all 0.4s ease;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.pricingTable-firstTable_table__getstart:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 15px rgba(102, 172, 100, 0.4);
+}
+
+.pricingTable-firstTable_table__getstart:active {
+  transform: translateY(-2px);
+  box-shadow: 0px 5px 10px rgba(102, 172, 100, 0.4);
+}
+
+.popular-badge {
+  position: absolute;
+  color: white;
+  background-color: var(--popular-badge);
+  text-align: center;
+  right: 15px;
+  top: -25px;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  font-size: 0.5em;
+  padding-top: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  transition: all 0.5s ease;
+}
+
+.popular:hover .popular-badge {
+  transform: rotate(360deg);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 992px) {
+  .pricingTable-firstTable_table {
+    width: 48%;
+  }
+
+  .pricingTable-firstTable_table.popular {
+    transform: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pricingTable-title {
+    font-size: 2.5em;
+  }
+
+  .pricingTable-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+  }
+
+  .pricingTable-firstTable {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .pricingTable-firstTable_table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pricingTable-title {
+    font-size: 2em;
+  }
+
+  .pricingTable-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+
+  .popular-badge {
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    padding-top: 15px;
+    font-size: 0.6em;
+  }
+}

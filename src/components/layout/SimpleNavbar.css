@@ -1,0 +1,253 @@
+/* Simple Navbar CSS */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease, padding 0.3s ease,
+    box-shadow 0.3s ease;
+  padding: 1rem 0;
+  background-color: #1e40af; /* Dark blue background */
+  background-image: linear-gradient(
+    to right,
+    #1e40af,
+    #3730a3
+  ); /* Blue to indigo gradient */
+}
+
+.navbar.scrolled {
+  background-image: none;
+  background-color: white;
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar.scrolled .navbar-logo {
+  color: #3730a3;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin-left: 1.5rem;
+}
+
+.navbar-links a,
+.navbar-links .nav-item {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.navbar-links a:hover,
+.navbar-links .nav-item:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar.scrolled .navbar-links a,
+.navbar.scrolled .navbar-links .nav-item {
+  color: #333;
+}
+
+.navbar.scrolled .navbar-links a:hover,
+.navbar.scrolled .navbar-links .nav-item:hover {
+  color: #3730a3;
+}
+
+/* Active link indicator */
+.navbar-links a.active::after,
+.navbar-links .nav-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled .navbar-links a.active::after,
+.navbar.scrolled .navbar-links .nav-item.active::after {
+  background-color: #3730a3;
+}
+
+/* Register button */
+.register-btn {
+  background-color: #3730a3;
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease !important;
+}
+
+.register-btn:hover {
+  background-color: #4f46e5 !important;
+  color: white !important;
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Hamburger Menu */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.navbar-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled .navbar-toggle span {
+  background-color: #333;
+}
+
+.navbar-toggle.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: #1e40af;
+    background-image: linear-gradient(to bottom, #1e40af, #3730a3);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    padding: 0;
+  }
+
+  .navbar-links.active {
+    max-height: 500px; /* Adjust based on your content */
+    padding: 1rem 0;
+  }
+
+  .navbar-links li {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-links a,
+  .navbar-links button,
+  .navbar-links .nav-item {
+    color: white;
+    display: block;
+    padding: 1rem 0;
+    width: 100%;
+  }
+
+  .navbar-links a:hover,
+  .navbar-links button:hover,
+  .navbar-links .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .navbar-links a.active::after,
+  .navbar-links .nav-item.active::after {
+    display: none;
+  }
+
+  .navbar-links a.active,
+  .navbar-links button.active,
+  .navbar-links .nav-item.active {
+    color: white;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Mobile specific button styles */
+  @media (max-width: 768px) {
+    .register-btn,
+    .logout-btn {
+      width: 80%;
+      margin: 0.5rem auto;
+      padding: 0.75rem 0;
+      background-color: white;
+      color: #3730a3 !important;
+    }
+
+    .register-btn:hover {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .logout-btn {
+      color: #ef4444 !important;
+    }
+
+    .logout-btn:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}

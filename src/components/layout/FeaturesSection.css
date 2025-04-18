@@ -1,0 +1,84 @@
+/* src/components/FeaturesSection.css */
+
+.features-section {
+  background-color: #00aeef;
+  padding: 4rem 2rem;
+  color: #453e3e;
+  text-align: center;
+}
+
+.features-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #453e3e;
+}
+
+.features-section p {
+  margin: 1rem auto 2rem;
+  max-width: 800px;
+  font-size: 1.1rem;
+  color: #d9f0fd;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.feature-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 1rem;
+  color: #1b1f3b;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  margin: 0 1rem 1rem;
+  color: #555;
+}
+
+.feature-card a {
+  display: block;
+  margin: 0 1rem 1rem;
+  color: #00aeef;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.view-more-btn {
+  margin-top: 2rem;
+}
+
+.view-more-btn button {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-more-btn button:hover {
+  background-color: #fff;
+  color: #00aeef;
+}
