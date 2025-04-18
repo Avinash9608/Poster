@@ -8,7 +8,7 @@ import Marble from "./Marble";
 
 const AboutSection = ({
   title = "Craft Stunning Publicity Posters",
-  content = "Our platform empowers creators with professional tools to design, share, and analyze impactful posters. From events to product launches, make your message stand out with our intuitive design system.",
+  content = "Our platform empowers creators with professional  tools to design, share, and analyze impactful posters.\n From events to product launches, make your message stand out with our intuitive design system.",
   images = [
     "https://images.unsplash.com/photo-1508161773455-3ada8ed2bbec?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
@@ -64,14 +64,16 @@ const AboutSection = ({
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
               {title}
             </h2>
-            <p className="text-lg text-gray-600">{content}</p>
+            <p className="text-lg text-gray-600 whitespace-pre-line">
+              {content}
+            </p>
           </div>
           <div className="page-content">
             {features.map((card, index) => (
               <article key={index} className="card">
                 <div className="content">
-                  <span className="icon">{iconMap[card.icon]}</span>
-                  <h2 className="title">{card.title}</h2>
+                  {/* <span className="icon">{iconMap[card.icon]}</span> */}
+                  <h3 className="title">{card.title}</h3>
                   <p className="copy">{card.description}</p>
                   <h4 className="copy">{card.stats}</h4>
                   <button className="btn">

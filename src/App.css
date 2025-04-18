@@ -172,6 +172,13 @@ button {
   outline: none;
 }
 
+@media (max-width: 768px) {
+  .custom-btn {
+    margin-left: 0;
+    width: 100px;
+  }
+}
+
 .btn-11 {
   border: none;
   background: rgb(251, 33, 117);
@@ -266,8 +273,97 @@ button {
   text-align: center;
   color: #2563eb !important;
   font-family: "Cormorant Garamond", serif;
-  font-size: 3.5rem !important; /* Standard h1 size in rem */
+  font-size: 1.5rem !important;
   line-height: 1.2;
-  margin: 0 0 1rem 0;
+  /* margin-top: 100px !important; */
+  margin: 0 0 2rem 0;
   font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .title {
+    font-size: 3rem !important;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .btn-7 {
+    padding: 10px 20px;
+    height: 44px;
+    min-width: 130px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem !important;
+  }
+
+  h1 {
+    font-size: 35px;
+  }
+
+  .frame {
+    width: 95%;
+    margin: 30px auto;
+  }
+
+  .btn-7 {
+    padding: 8px 16px;
+    height: 40px;
+    min-width: 120px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem !important;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .frame {
+    width: 100%;
+    margin: 20px auto;
+  }
+
+  .btn-7 {
+    padding: 8px 14px;
+    height: 38px;
+    min-width: 110px !important;
+  }
+
+  .mix-blend-difference {
+    margin-top: 200px;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 350px) {
+  .title {
+    font-size: 1.8rem !important;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .btn-7 {
+    padding: 6px 12px;
+    height: 36px;
+    min-width: 100px !important;
+  }
 }

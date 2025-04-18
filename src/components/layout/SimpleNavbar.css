@@ -167,7 +167,7 @@
 }
 
 /* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .navbar-toggle {
     display: flex;
   }
@@ -228,26 +228,71 @@
   }
 
   /* Mobile specific button styles */
-  @media (max-width: 768px) {
-    .register-btn,
-    .logout-btn {
-      width: 80%;
-      margin: 0.5rem auto;
-      padding: 0.75rem 0;
-      background-color: white;
-      color: #3730a3 !important;
-    }
+  .register-btn,
+  .logout-btn {
+    width: 80%;
+    margin: 0.5rem auto;
+    padding: 0.75rem 0;
+    background-color: white;
+    color: #3730a3 !important;
+  }
 
-    .register-btn:hover {
-      background-color: rgba(255, 255, 255, 0.9) !important;
-    }
+  .register-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
 
-    .logout-btn {
-      color: #ef4444 !important;
-    }
+  .logout-btn {
+    color: #ef4444 !important;
+  }
 
-    .logout-btn:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-    }
+  .logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 1rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+
+  .navbar-links.active {
+    max-height: 100vh;
+  }
+
+  .navbar-links a,
+  .navbar-links button,
+  .navbar-links .nav-item {
+    padding: 0.8rem 0;
+    font-size: 0.9rem;
+  }
+
+  .register-btn,
+  .logout-btn {
+    width: 90%;
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra small mobile styles */
+@media (max-width: 350px) {
+  .navbar-container {
+    padding: 0 0.8rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.1rem;
+  }
+
+  .navbar-links a,
+  .navbar-links button,
+  .navbar-links .nav-item {
+    padding: 0.7rem 0;
+    font-size: 0.85rem;
   }
 }

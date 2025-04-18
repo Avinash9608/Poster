@@ -574,6 +574,36 @@ form.sign-up-form {
 
   .input-field {
     grid-template-columns: 15% 70% 15%;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .btn {
+    width: 130px;
+    height: 45px;
+    font-size: 0.9rem;
+  }
+
+  .social-media {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .icon-mode {
+    margin: 20px 5px 0 5px;
+  }
+
+  .auth-home-link {
+    top: 10px;
+    left: 10px;
+  }
+
+  .back-to-home {
+    padding: 8px 12px;
+    font-size: 0.9rem;
   }
 }
 
@@ -581,10 +611,52 @@ form.sign-up-form {
   .input-field {
     grid-template-columns: 20% 60% 20%;
   }
+
+  form {
+    padding: 0 1rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .btn {
+    width: 120px;
+    height: 40px;
+    font-size: 0.8rem;
+  }
+
+  .check {
+    font-size: 0.8rem;
+  }
+
+  .auth-home-link {
+    top: 5px;
+    left: 5px;
+  }
+
+  .back-to-home {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 350px) {
   .input-field {
     grid-template-columns: 20% 60% 20%;
+  }
+
+  .input-field input {
+    font-size: 0.9rem;
+  }
+
+  .panel h3 {
+    font-size: 1rem;
+  }
+
+  .btn.transparent {
+    width: 100px;
+    height: 35px;
+    font-size: 0.7rem;
   }
 }
