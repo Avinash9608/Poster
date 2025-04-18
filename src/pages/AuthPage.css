@@ -63,6 +63,36 @@
   font-family: "Poppins", sans-serif;
 }
 
+.auth-home-link {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.back-to-home {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--btn-color);
+  color: var(--btn-text);
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-to-home i {
+  margin-right: 8px;
+}
+
+.back-to-home:hover {
+  background-color: var(--btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
 .container-auth {
   position: relative;
   width: 100%;

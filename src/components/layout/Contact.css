@@ -1,4 +1,5 @@
 .contact-container {
+  margin-top: 70px;
   background: linear-gradient(45deg, #bb1881, #f88b50);
   font-family: sans-serif;
   min-height: 100vh;
@@ -16,7 +17,7 @@
 .flip-card {
   border-radius: 0.5em;
   position: fixed;
-  top: 1em;
+  top: 6em;
   left: 1em;
   width: 5em;
   padding: 0.5em;

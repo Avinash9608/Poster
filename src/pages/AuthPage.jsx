@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import Layout from "../components/layout/Layout";
 import "./AuthPage.css";
 import logImage from "../assets/log.svg";
 import registerImage from "../assets/register.svg";
@@ -91,7 +90,12 @@ const AuthPage = () => {
   };
 
   return (
-    <Layout>
+    <>
+      <div className="auth-home-link">
+        <Link to="/" className="back-to-home">
+          <i className="fas fa-home"></i> Back to Home
+        </Link>
+      </div>
       <div
         className={`container-auth ${isSignUpMode ? "sign-up-mode" : ""}`}
         ref={containerRef}
@@ -272,7 +276,7 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

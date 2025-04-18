@@ -92,6 +92,7 @@
   ================================================== */
 
 .hero-section {
+  margin-top: 70px;
   position: relative;
   width: 100%;
   display: block;
@@ -428,6 +429,7 @@ body.contact-on .contact-section {
 .travel-section,
 .wildlife-section,
 .nature-section {
+  margin-top: 70px;
   position: fixed;
   top: 100%;
   left: 0;
