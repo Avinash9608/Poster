@@ -36,10 +36,10 @@ const HomeNavbar = () => {
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
       <div className="navbar-container">
-        <div 
-          className="navbar-logo" 
+        <div
+          className="navbar-logo"
           onClick={() => handleNavigation("/")}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
         >
           Publicity Poster
         </div>
@@ -56,7 +56,7 @@ const HomeNavbar = () => {
 
         <ul className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
           <li>
-            <div 
+            <div
               className="nav-item active"
               onClick={() => handleNavigation("/")}
             >
@@ -87,6 +87,7 @@ const HomeNavbar = () => {
               Contact
             </div>
           </li>
+
           <li>
             <div
               className="nav-item"
@@ -96,13 +97,21 @@ const HomeNavbar = () => {
             </div>
           </li>
           <li>
-            <div 
+            <div
+              className="nav-item login-btn"
+              onClick={() => handleNavigation("/register")}
+            >
+              Sign Up For Free
+            </div>
+          </li>
+          {/* <li>
+            <div
               className="register-btn"
               onClick={() => handleNavigation("/register")}
             >
               Register
             </div>
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>
