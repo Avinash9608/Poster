@@ -1,414 +1,545 @@
 import { useState, useEffect, useRef } from "react";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import EnhancedPosterCard from "./EnhancedPosterCard";
-import Button from "../ui/EnhancedButton";
+import "./PosterTemplates.css";
 import SearchBar from "./SearchBar";
-import "./FloatingCard.css";
-
-const FeaturedPosters = () => {
+const PosterTemplates = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
+
   const [templates, setTemplates] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [filteredTemplates, setFilteredTemplates] = useState([]);
+  const [userPosters, setUserPosters] = useState([]);
+  const [loading, setLoading] = useState({
+    templates: true,
+    posters: true,
+  });
   const [error, setError] = useState(null);
-  const placeholderScrollRef = useRef(null);
-  const mainScrollRef = useRef(null);
-  const autoScrollIntervalRef = useRef(null);
-  const [isPaused, setIsPaused] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [showAllPosters, setShowAllPosters] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [searchParams, setSearchParams] = useState({
     searchTerm: "",
     category: "all",
   });
-  const [filteredTemplates, setFilteredTemplates] = useState([]);
-  const [user, setUser] = useState(null);
 
-  // Fetch templates from backend
-  const fetchTemplates = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch("http://localhost:5000/api/templates");
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      const data = await res.json();
-      setTemplates(Array.isArray(data) ? data : []);
-      setFilteredTemplates(Array.isArray(data) ? data : []);
-      setError(null);
-    } catch (err) {
-      console.error("Error fetching templates:", err);
-      setError("Failed to fetch templates. Please try again later.");
-      setTemplates([]);
-      setFilteredTemplates([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  // Fetch templates and user posters
   useEffect(() => {
-    fetchTemplates();
-  }, []);
-
-  // Check if user is logged in
-  useEffect(() => {
-    const fetchUser = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("/api/auth/me");
-        setUser(response.data);
-      } catch (error) {
-        console.log("User not logged in");
+        const [templatesRes, postersRes] = await Promise.all([
+          axios.get(
+            "https://publicityposterbackend.onrender.com/api/templates"
+          ),
+          user
+            ? axios.get(
+                "https://publicityposterbackend.onrender.com/api/posters/my-posters",
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              )
+            : Promise.resolve({ data: [] }),
+        ]);
+
+        setTemplates(templatesRes.data);
+        setFilteredTemplates(templatesRes.data);
+        setUserPosters(postersRes.data);
+      } catch (err) {
+        setError("Failed to load data. Please try again later.");
+        console.error(err);
+      } finally {
+        setLoading({ templates: false, posters: false });
       }
     };
-    fetchUser();
-  }, []);
 
-  // Auto-scroll functionality
+    fetchData();
+  }, [user]);
+
+  // Filter templates
   useEffect(() => {
-    if (showAllPosters) {
-      if (autoScrollIntervalRef.current) {
-        clearInterval(autoScrollIntervalRef.current);
-        autoScrollIntervalRef.current = null;
-      }
-      return;
+    let filtered = [...templates];
+
+    if (searchParams.searchTerm) {
+      const term = searchParams.searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (template) =>
+          template.title.toLowerCase().includes(term) ||
+          template.description.toLowerCase().includes(term) ||
+          (template.category && template.category.toLowerCase().includes(term))
+      );
     }
 
-    const initializeScroll = () => {
-      const container =
-        isLoading || error
-          ? placeholderScrollRef.current
-          : mainScrollRef.current;
-      if (container) {
-        container.scrollLeft = 0;
-        setScrollProgress(0);
-      }
-    };
-
-    initializeScroll();
-
-    const startAutoScroll = () => {
-      if (autoScrollIntervalRef.current) {
-        clearInterval(autoScrollIntervalRef.current);
-      }
-
-      autoScrollIntervalRef.current = setInterval(() => {
-        if (!isPaused) {
-          const container =
-            isLoading || error
-              ? placeholderScrollRef.current
-              : mainScrollRef.current;
-          if (container) {
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            const currentScroll = container.scrollLeft;
-            const currentProgress = (currentScroll / maxScroll) * 100;
-            const isAtEnd = currentProgress >= 95;
-
-            if (isAtEnd) {
-              container.scrollTo({ left: 0, behavior: "smooth" });
-              setScrollProgress(0);
-            } else {
-              const nextScrollPosition = currentScroll + 300;
-              const nextProgress = Math.min(
-                100,
-                (nextScrollPosition / maxScroll) * 100
-              );
-              container.scrollTo({
-                left: nextScrollPosition,
-                behavior: "smooth",
-              });
-              setScrollProgress(nextProgress);
-            }
-          }
-        }
-      }, 2000);
-    };
-
-    startAutoScroll();
-
-    return () => {
-      if (autoScrollIntervalRef.current) {
-        clearInterval(autoScrollIntervalRef.current);
-      }
-    };
-  }, [isLoading, error, isPaused, showAllPosters]);
-
-  // Filter templates based on search parameters
-  useEffect(() => {
-    try {
-      let filtered = Array.isArray(templates) ? [...templates] : [];
-
-      if (searchParams.searchTerm) {
-        const term = searchParams.searchTerm.toLowerCase();
-        filtered = filtered.filter(
-          (template) =>
-            template &&
-            template.title &&
-            template.description &&
-            (template.title.toLowerCase().includes(term) ||
-              template.description.toLowerCase().includes(term))
-        );
-      }
-
-      if (searchParams.category !== "all") {
-        filtered = filtered.filter(
-          (template) => template && template.category === searchParams.category
-        );
-      }
-
-      setFilteredTemplates(filtered);
-    } catch (error) {
-      console.error("Error filtering templates:", error);
-      setFilteredTemplates([]);
+    if (searchParams.category !== "all") {
+      filtered = filtered.filter(
+        (template) => template.category === searchParams.category
+      );
     }
+
+    setFilteredTemplates(filtered);
   }, [templates, searchParams]);
 
   const handleSearch = (params) => {
     setSearchParams(params);
   };
 
-  const handleCreatePoster = () => {
+  const openForm = (template) => {
     if (!user) {
       navigate("/login");
       return;
     }
-    navigate("/create-poster");
+    setSelectedTemplate(template);
+    setShowForm(true);
   };
 
-  const renderTemplates = () => {
-    const templatesToRender = Array.isArray(filteredTemplates)
-      ? filteredTemplates
-      : [];
-
-    if (isLoading) {
-      return [...Array(8)].map((_, index) => (
-        <div key={index} className="animate-pulse">
-          <div className="bg-gray-200 rounded-lg h-64 mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-        </div>
-      ));
-    }
-
-    if (error) {
-      return (
-        <div className="col-span-full text-center py-8">
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4 mx-auto max-w-2xl">
-            <div className="flex items-center justify-center">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-red-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (templatesToRender.length === 0) {
-      return (
-        <div className="col-span-full text-center py-8">
-          <p className="text-gray-600">
-            No templates found matching your criteria.
-          </p>
-        </div>
-      );
-    }
-
-    return templatesToRender.map((template) => (
-      <div
-        key={template._id}
-        className="card-appear"
-        style={{ animationDelay: `${Math.random() * 0.5}s` }}
-      >
-        <EnhancedPosterCard poster={template} />
-      </div>
-    ));
+  const closeForm = () => {
+    setShowForm(false);
   };
+
+  if (loading.templates)
+    return <div className="loading">Loading templates...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
-    <section
-      id="featured-posters"
-      className="py-20 bg-gradient-to-b from-gray-50 to-white"
-    >
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <div className="mb-3">
-            <span className="bg-primary-100 text-primary-800 text-xs font-semibold px-3 py-1 rounded-full">
-              TEMPLATE COLLECTION
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold font-display text-gray-900 mb-4 relative inline-block">
-            Poster Templates
-            <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 transform -translate-y-0"></div>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
-            Choose from our professionally designed templates to create your
-            perfect poster.
-          </p>
+    <div className="templates-container">
+      <h2 className="section-title">Choose a Template</h2>
+
+      {/* <div className="search-controls">
+        <input
+          type="search"
+          placeholder="Search templates..."
+          value={searchParams.searchTerm}
+          onChange={(e) =>
+            handleSearch({ ...searchParams, searchTerm: e.target.value })
+          }
+          className="search-input"
+        />
+        <select
+          value={searchParams.category}
+          onChange={(e) =>
+            handleSearch({ ...searchParams, category: e.target.value })
+          }
+          className="category-select"
+        >
+          <option value="all">All Categories</option>
+          <option value="business">Business</option>
+          <option value="event">Events</option>
+          <option value="sale">Sales</option>
+          <option value="promotion">Promotions</option>
+        </select>
+      </div> */}
+      <SearchBar onSearch={handleSearch} />
+
+      {filteredTemplates.length === 0 ? (
+        <div className="no-results">
+          <img
+            src="/images/no-results.svg"
+            alt="No results"
+            className="no-results-img"
+          />
+          <p>No templates found matching your search criteria.</p>
         </div>
-
-        <SearchBar onSearch={handleSearch} />
-
-        {showAllPosters ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-            {renderTemplates()}
-          </div>
-        ) : (
-          <div>
-            {isLoading ? (
-              <div className="flex flex-col justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 border-t-primary-600"></div>
-                <p className="mt-4 text-gray-500 font-medium">
-                  Loading templates...
-                </p>
+      ) : (
+        <div className="templates-grid">
+          {filteredTemplates.map((template) => (
+            <div key={template._id} className="template-card">
+              <div className="template-image-container">
+                <img
+                  src={template.imageUrl}
+                  alt={template.title}
+                  className="template-image"
+                />
+                <div className="template-overlay">
+                  <h3 className="template-title">{template.title}</h3>
+                  {template.category && (
+                    <span className="template-category">
+                      {template.category}
+                    </span>
+                  )}
+                </div>
               </div>
-            ) : error ? (
-              <div className="text-center py-8">
-                <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-8 mx-auto max-w-2xl">
-                  <div className="flex items-center justify-center">
-                    <div className="flex-shrink-0">
-                      <svg
-                        className="h-5 w-5 text-red-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm text-red-700">{error}</p>
-                    </div>
+              <button
+                onClick={() => openForm(template)}
+                className="create-button"
+              >
+                <i className="fas fa-magic"></i> Create Poster
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* User's Poster History */}
+      {user && (
+        <div className="poster-history">
+          <h3>Your Created Posters</h3>
+          {loading.posters ? (
+            <div className="loading">Loading your posters...</div>
+          ) : userPosters.length === 0 ? (
+            <p className="no-posters">You haven't created any posters yet.</p>
+          ) : (
+            <div className="history-grid">
+              {userPosters.map((poster) => (
+                <div key={poster._id} className="history-card">
+                  <img
+                    src={poster.finalPosterUrl}
+                    alt={poster.businessName}
+                    className="history-image"
+                  />
+                  <div className="history-details">
+                    <p className="history-business">{poster.businessName}</p>
+                    <p className="history-date">
+                      {new Date(poster.createdAt).toLocaleDateString()}
+                    </p>
+                    <a
+                      href={`https://wa.me/?text=Check%20out%20my%20poster:%20${encodeURIComponent(
+                        poster.finalPosterUrl
+                      )}`}
+                      className="whatsapp-button"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-whatsapp"></i> Share
+                    </a>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="relative px-4 container mx-auto">
-                <div
-                  className="scroll-snap-container overflow-hidden"
-                  ref={mainScrollRef}
-                  onMouseEnter={() => setIsPaused(true)}
-                  onMouseLeave={() => setIsPaused(false)}
-                  onTouchStart={() => setIsPaused(true)}
-                  onTouchEnd={() => setTimeout(() => setIsPaused(false), 1000)}
-                  onScroll={(e) => {
-                    const container = e.currentTarget;
-                    const scrollPosition = container.scrollLeft;
-                    const maxScroll =
-                      container.scrollWidth - container.clientWidth;
-                    const progress = Math.min(
-                      100,
-                      Math.max(0, (scrollPosition / maxScroll) * 100)
-                    );
-                    if (Math.abs(progress - scrollProgress) > 1) {
-                      setScrollProgress(progress);
-                    }
-                  }}
-                >
-                  {Array.isArray(filteredTemplates) &&
-                    filteredTemplates.map((template, index) => (
-                      <div
-                        key={template._id}
-                        className={`scroll-snap-item card-appear card-appear-${
-                          index + 1
-                        }`}
-                      >
-                        <EnhancedPosterCard poster={template} />
-                      </div>
-                    ))}
-                </div>
-              </div>
-            )}
-
-            <div className="flex justify-center mt-6 mb-4">
-              <div className="progress-line relative w-full max-w-md h-2 bg-gray-200 rounded-full overflow-hidden shadow-inner">
-                <div
-                  className="progress-fill absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 via-primary-600 to-primary-400 transition-all duration-300 ease-out shadow-lg"
-                  style={{ width: `${scrollProgress}%` }}
-                ></div>
-
-                <div className="absolute top-0 left-0 w-full h-full flex justify-between items-center px-1">
-                  {[...Array(8)].map((_, index) => {
-                    const dotPosition = (index / 7) * 100;
-                    const isActive = scrollProgress >= dotPosition;
-                    return (
-                      <button
-                        key={index}
-                        className={`progress-dot relative z-10 rounded-full transition-all duration-300 ${
-                          isActive
-                            ? "active bg-white border-2 border-primary-600 w-4 h-4 shadow-md"
-                            : "bg-gray-300 hover:bg-gray-400 w-3 h-3"
-                        }`}
-                        aria-label={`Scroll to slide ${index + 1}`}
-                        onClick={() => {
-                          const targetProgress = (index / 7) * 100;
-                          setScrollProgress(targetProgress);
-                          const container = mainScrollRef.current;
-                          if (container) {
-                            const targetPosition =
-                              (container.scrollWidth - container.clientWidth) *
-                              (targetProgress / 100);
-                            container.scrollTo({
-                              left: targetPosition,
-                              behavior: "smooth",
-                            });
-                          }
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
-        )}
-
-        <div className="text-center mt-12">
-          <Button
-            variant="primary"
-            size="lg"
-            className="px-8 py-3 shadow-md hover:shadow-lg transition-all duration-300 btn-7 hover:transform hover:-translate-y-1"
-            onClick={handleCreatePoster}
-          >
-            <span className="flex items-center space-x-2">
-              <span className="font-medium whitespace-nowrap">
-                Create Own Poster
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </Button>
+          )}
         </div>
-      </div>
-    </section>
+      )}
+
+      {showForm && (
+        <>
+          <div className="form-overlay" onClick={closeForm}></div>
+          <div className="customize-form-container">
+            <CustomizeForm
+              template={selectedTemplate}
+              onClose={closeForm}
+              user={user}
+              updatePosters={() => {
+                axios
+                  .get("http://localhost:5000/api/posters/my-posters", {
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  })
+                  .then((res) => setUserPosters(res.data))
+                  .catch((err) => console.error(err));
+              }}
+            />
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
-export default FeaturedPosters;
+const CustomizeForm = ({ template, onClose, user, updatePosters }) => {
+  const [formData, setFormData] = useState({
+    businessName: "",
+    phoneNumber: user?.phoneNumber || "",
+    logo: null,
+    logoPreview: null,
+  });
+  const [generatedPoster, setGeneratedPoster] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (!template || !template.imageUrl) {
+      setError("Template data is missing or invalid");
+      onClose();
+    }
+  }, [template, onClose]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          logo: file,
+          logoPreview: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const savePosterToDatabase = async (posterUrl) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/posters",
+        {
+          templateId: template._id,
+          businessName: formData.businessName,
+          phoneNumber: formData.phoneNumber,
+          logoUrl: formData.logoPreview,
+          finalPosterUrl: posterUrl,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.error("Error saving poster:", err);
+      throw err;
+    }
+  };
+
+  const generatePoster = async () => {
+    if (!template?.imageUrl) {
+      setError("Template image is missing");
+      return;
+    }
+
+    setIsGenerating(true);
+    setError(null);
+
+    try {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+
+      const templateImg = new Image();
+      templateImg.crossOrigin = "Anonymous";
+      templateImg.src = template.imageUrl;
+
+      await new Promise((resolve, reject) => {
+        templateImg.onload = resolve;
+        templateImg.onerror = () => reject("Failed to load template image");
+      });
+
+      canvas.width = templateImg.width;
+      canvas.height = templateImg.height;
+      ctx.drawImage(templateImg, 0, 0);
+
+      // Add business name (bottom left)
+      if (formData.businessName) {
+        ctx.font = "bold 24px Arial";
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "left";
+        ctx.fillText(formData.businessName, 20, canvas.height - 20);
+      }
+
+      // Add phone number (bottom right)
+      if (formData.phoneNumber) {
+        ctx.font = "bold 20px Arial";
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "right";
+        ctx.fillText(
+          formData.phoneNumber,
+          canvas.width - 20,
+          canvas.height - 20
+        );
+      }
+
+      // Add logo (top left)
+      if (formData.logoPreview) {
+        const logoImg = new Image();
+        await new Promise((resolve, reject) => {
+          logoImg.onload = resolve;
+          logoImg.onerror = () => reject("Failed to load logo");
+          logoImg.src = formData.logoPreview;
+        });
+
+        const logoWidth = 100;
+        const logoHeight = (logoImg.height / logoImg.width) * logoWidth;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(15, 15, logoWidth + 10, logoHeight + 10);
+        ctx.drawImage(logoImg, 20, 20, logoWidth, logoHeight);
+      }
+
+      const posterUrl = canvas.toDataURL("image/jpeg", 0.9);
+      setGeneratedPoster(posterUrl);
+
+      // Save to database
+      await savePosterToDatabase(posterUrl);
+
+      // Update posters list
+      if (updatePosters) {
+        updatePosters();
+      }
+
+      setSuccess(true);
+    } catch (err) {
+      console.error("Error generating poster:", err);
+      setError(err.message || "Failed to generate poster");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const downloadPoster = () => {
+    if (!generatedPoster) return;
+
+    const link = document.createElement("a");
+    link.download = `${formData.businessName || "poster"}-${Date.now()}.jpg`;
+    link.href = generatedPoster;
+    link.click();
+  };
+
+  if (error) {
+    return (
+      <div className="customize-form">
+        <button className="close-button" onClick={onClose}>
+          ×
+        </button>
+        <div className="error-message">
+          <i className="fas fa-exclamation-circle"></i>
+          <p>{error}</p>
+          <button onClick={onClose} className="close-btn">
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="customize-form">
+      <button className="close-button" onClick={onClose}>
+        ×
+      </button>
+
+      {success ? (
+        <div className="success-container">
+          <div className="success-icon">
+            <i className="fas fa-check-circle"></i>
+          </div>
+          <h3>Poster Generated Successfully!</h3>
+
+          <div className="poster-preview-container">
+            <img
+              src={generatedPoster}
+              alt="Generated poster"
+              className="final-poster"
+            />
+          </div>
+
+          <p className="success-message">
+            Your poster has been saved. You can download it below or share it
+            via WhatsApp.
+          </p>
+
+          <div className="action-buttons">
+            <button
+              onClick={() => {
+                setGeneratedPoster(null);
+                setSuccess(false);
+              }}
+              className="edit-button"
+            >
+              <i className="fas fa-edit"></i> Edit Again
+            </button>
+            <button onClick={downloadPoster} className="download-button">
+              <i className="fas fa-download"></i> Download
+            </button>
+            <a
+              href={`https://wa.me/?text=Check%20out%20my%20new%20poster:%20${encodeURIComponent(
+                formData.businessName
+              )}%20${encodeURIComponent(generatedPoster)}`}
+              className="whatsapp-button"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fab fa-whatsapp"></i> Share
+            </a>
+          </div>
+        </div>
+      ) : (
+        <>
+          <h3>Customize: {template?.title || "Poster"}</h3>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              generatePoster();
+            }}
+          >
+            <div className="form-group">
+              <label>Business Name*</label>
+              <input
+                type="text"
+                name="businessName"
+                value={formData.businessName}
+                onChange={handleChange}
+                required
+                placeholder="Your business name"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Phone Number*</label>
+              <input
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+                placeholder="Your contact number"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Business Logo (Optional)</label>
+              <div className="file-upload-container">
+                <label className="file-upload-label">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                  />
+                  <span className="file-upload-button">
+                    <i className="fas fa-upload"></i> Choose File
+                  </span>
+                  {formData.logoPreview ? "File selected" : "No file chosen"}
+                </label>
+                {formData.logoPreview && (
+                  <img
+                    src={formData.logoPreview}
+                    alt="Logo preview"
+                    className="logo-preview"
+                  />
+                )}
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={isGenerating}
+            >
+              {isGenerating ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i> Generating...
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-magic"></i> Generate Poster
+                </>
+              )}
+            </button>
+          </form>
+        </>
+      )}
+
+      <canvas ref={canvasRef} style={{ display: "none" }} />
+    </div>
+  );
+};
+
+export default PosterTemplates;

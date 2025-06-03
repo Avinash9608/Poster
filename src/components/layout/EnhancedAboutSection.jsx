@@ -117,9 +117,9 @@ const AboutSection = ({
           </div>
         </div>
       </section>
-      <Marble />
-      <FeaturesSection />
-      <TrendingCategories />
+      {/* <Marble /> */}
+      {/* <FeaturesSection /> */}
+      {/* <TrendingCategories /> */}
     </>
   );
 };

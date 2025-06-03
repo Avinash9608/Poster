@@ -3,7 +3,7 @@ import "./SearchBar.css";
 
 const categories = [
   { id: "all", name: "All", icon: "fa-th-large" },
-  { id: "events", name: "Events", icon: "fa-calendar-alt" },
+  { id: "Events", name: "Events", icon: "fa-calendar-alt" },
   { id: "concerts", name: "Concerts", icon: "fa-music" },
   { id: "exhibitions", name: "Exhibitions", icon: "fa-palette" },
   { id: "conferences", name: "Conferences", icon: "fa-users" },
@@ -132,3 +132,51 @@ const SearchBar = ({ onSearch }) => {
 };
 
 export default SearchBar;
+
+// import { useState, useEffect } from "react";
+// import "./SearchBar.css";
+
+// const categories = [
+//   { id: "all", name: "All", icon: "fa-th-large" },
+//   { id: "Events", name: "Events", icon: "fa-calendar-alt" },
+//   { id: "concerts", name: "Concerts", icon: "fa-music" },
+//   { id: "exhibitions", name: "Exhibitions", icon: "fa-palette" },
+//   { id: "conferences", name: "Conferences", icon: "fa-users" },
+//   { id: "workshops", name: "Workshops", icon: "fa-tools" },
+// ];
+
+// const SearchBar = ({ onSearch }) => {
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [selectedCategory, setSelectedCategory] = useState("all");
+
+//   useEffect(() => {
+//     onSearch({ searchTerm, category: selectedCategory });
+//   }, [searchTerm, selectedCategory, onSearch]);
+
+//   return (
+//     <div className="search-bar">
+//       <input
+//         type="text"
+//         className="search-input"
+//         placeholder="Search templates..."
+//         value={searchTerm}
+//         onChange={(e) => setSearchTerm(e.target.value)}
+//       />
+//       <div className="category-buttons">
+//         {categories.map((cat) => (
+//           <button
+//             key={cat.id}
+//             className={`category-button ${
+//               selectedCategory === cat.id ? "active" : ""
+//             }`}
+//             onClick={() => setSelectedCategory(cat.id)}
+//           >
+//             <i className={`fas ${cat.icon}`}></i> {cat.name}
+//           </button>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default SearchBar;

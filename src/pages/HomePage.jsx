@@ -108,10 +108,10 @@ const HomePage = () => {
       <FeaturedPosters />
 
       {/* About Section */}
-      <AboutSection title={aboutContent.title} content={aboutContent.content} />
+      {/* <AboutSection title={aboutContent.title} content={aboutContent.content} /> */}
 
       {/* Call to Action */}
-      <CallToAction />
+      {/* <CallToAction /> */}
     </HomeLayout>
   );
 };

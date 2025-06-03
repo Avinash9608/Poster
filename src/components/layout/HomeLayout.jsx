@@ -6,7 +6,7 @@ const HomeLayout = ({ children }) => {
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <HomeNavbar />
       <main className="flex-grow w-full">{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
