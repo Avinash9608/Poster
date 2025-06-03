@@ -16,7 +16,7 @@ const HomeNavbar = () => {
         if (token) {
           // Verify token with backend
           const response = await fetch(
-            "http://localhost:5000/api/auth/verify",
+            "https://publicityposterbackend.onrender.com/api/auth/verify",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -69,12 +69,15 @@ const HomeNavbar = () => {
   const handleLogout = async () => {
     try {
       // Call logout API
-      await fetch("http://localhost:5000/api/auth/logout", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await fetch(
+        "https://publicityposterbackend.onrender.com/api/auth/logout",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
