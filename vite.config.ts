@@ -34,7 +34,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://publicity-poster-backend.vercel.app",
+        target: "https://publicityposterbackend.onrender.com",
         changeOrigin: true,
         // No rewrite here — keep the /api prefix intact
       },
