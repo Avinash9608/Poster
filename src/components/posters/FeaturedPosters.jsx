@@ -220,11 +220,16 @@ const PosterTemplates = () => {
               user={user}
               updatePosters={() => {
                 axios
-                  .get("http://localhost:5000/api/posters/my-posters", {
-                    headers: {
-                      Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                  })
+                  .get(
+                    "https://publicityposterbackend.onrender.com/api/posters/my-posters",
+                    {
+                      headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                          "token"
+                        )}`,
+                      },
+                    }
+                  )
                   .then((res) => setUserPosters(res.data))
                   .catch((err) => console.error(err));
               }}
@@ -278,7 +283,7 @@ const CustomizeForm = ({ template, onClose, user, updatePosters }) => {
   const savePosterToDatabase = async (posterUrl) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/posters",
+        "https://publicityposterbackend.onrender.com/api/posters",
         {
           templateId: template._id,
           businessName: formData.businessName,
