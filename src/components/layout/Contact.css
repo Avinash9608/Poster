@@ -312,3 +312,38 @@ form textarea {
     left: 0.5em;
   }
 }
+
+.content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.submit-card {
+  background: linear-gradient(135deg, #fff, #ffe082);
+  color: #333;
+  font-weight: bold;
+  padding: 0.75em;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.submit-card:hover {
+  background: linear-gradient(135deg, #fff176, #ffd54f);
+  transform: scale(1.05);
+}
+
+.flip-card {
+  transition: all 0.4s ease-in-out;
+}
+.flip-card:hover {
+  transform: rotateZ(-3deg) scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    background: linear-gradient(135deg, #7b1fa2, #f06292);
+  }
+}
