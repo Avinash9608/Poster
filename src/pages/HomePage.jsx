@@ -5,7 +5,7 @@ import Hero from "../components/layout/EnhancedHero";
 import FeaturedPosters from "../components/posters/FeaturedPosters";
 import AboutSection from "../components/layout/EnhancedAboutSection";
 import CallToAction from "../components/layout/EnhancedCallToAction";
-import PosterModule from "../components/postersPro/PosterModule";
+
 const HomePage = () => {
   const [heroContent, setHeroContent] = useState({
     title: "Create and Share Amazing Publicity Posters",
@@ -103,7 +103,7 @@ const HomePage = () => {
         subtitle={heroContent.subtitle}
         backgroundImage="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
       />
-      <PosterModule />
+
       {/* Featured Posters Section */}
       <FeaturedPosters />
 
