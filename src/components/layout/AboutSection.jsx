@@ -144,12 +144,12 @@ const AboutSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             Craft Stunning Publicity Posters
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          {/* <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Our platform empowers creators to design eye-catching publicity
             posters that captivate audiences. With intuitive tools and
             professional templates, you can create impactful visual
             communications for any purpose.
-          </p>
+          </p> */}
         </div>
 
         {/* Card Grid with Custom Images */}

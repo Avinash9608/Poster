@@ -610,15 +610,21 @@ form .mmyformsec:hover {
   margin-bottom: 10px;
 }
 
-.FormOverlay{
-
+.FormOverlay {
 }
-
-.templates-grid{
+/* 
+.templates-grid {
   display: flex !important;
-  justify-content: space-between;
+  justify-content: space-between !important;
+} */
+.templates-grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1.5rem; /* or any spacing you prefer */
+  justify-content: flex-start !important;
 }
-.action-buttons{
+
+.action-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
