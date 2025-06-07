@@ -169,7 +169,7 @@ form.sign-up-form {
 }
 
 .input-field {
- max-width: 380px;
+  max-width: 380px;
   width: 100%;
   background-color: #ffffff;
   height: 55px;
@@ -178,7 +178,7 @@ form.sign-up-form {
   display: grid;
   grid-template-columns: 15% 85%;
   padding: 0 0.4rem;
-   border: 1px solid #e0e0e0;
+  border: 1px solid #e0e0e0;
   transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 .input-field {
@@ -188,7 +188,6 @@ form.sign-up-form {
   border: 1px solid #c770a2 !important; /* Color from your gradient */
   box-shadow: 0 0 6px rgba(199, 112, 162, 0.3) !important;
 }
-
 
 .input-field i {
   text-align: center;
@@ -433,7 +432,7 @@ form.sign-up-form {
 
 .container-auth.sign-up-mode:before {
   transform: translate(100%, -50%);
-  
+
   right: 52%;
 }
 
@@ -712,8 +711,8 @@ form.sign-up-form {
   grid-column: 1 / 2 !important;
   grid-row: 1 / 2 !important;
   transition: 0.2s 0.7s ease-in-out !important;
-  -ms-overflow-style: none !important;  /* IE and Edge */
-  scrollbar-width: none !important;  /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -930,7 +929,6 @@ form.sign-in-form {
   align-items: center;
   justify-content: center;
   font-weight: bold;
- 
 }
 
 .progress-step.active .step-number {
@@ -944,13 +942,12 @@ form.sign-in-form {
 }
 
 .form-step {
-    width: 100%;
-    max-width: 500px;
-    display: flex
-;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .form-actions {
   display: flex;
@@ -1222,71 +1219,73 @@ form.sign-in-form {
     bottom: 78%;
     left: 50%;
   }
-  
+
   .signin-signup {
     top: 92%;
     width: 95%;
   }
-  
+
   .title {
     font-size: 1.6rem;
   }
-  
+
   .input-field {
     height: 48px;
     grid-template-columns: 15% 70% 15%;
   }
-  
+
   .input-field i {
     line-height: 48px;
   }
-  
+
   .btn {
     width: 130px;
     height: 42px;
     font-size: 0.9rem;
   }
-  
+
   .panel .content {
     padding-right: 0;
   }
-  
+
   .panel h3 {
     font-size: 1.1rem;
   }
-  
+
   .btn.transparent {
     width: 100px;
     height: 32px;
     font-size: 0.65rem;
   }
-  
+
   .auth-home-link {
     top: 8px;
     left: 8px;
   }
-  
+
   .back-to-home {
     padding: 6px 10px;
     font-size: 0.8rem;
   }
-  
+
   .registration-progress {
     gap: 8px;
   }
-  
+
   .step-number {
     width: 25px;
     height: 25px;
     font-size: 0.8rem;
   }
-  
+
   .form-actions {
     flex-direction: column;
     gap: 10px;
   }
-  
-  .btn-prev, .btn-next, .btn-submit {
+
+  .btn-prev,
+  .btn-next,
+  .btn-submit {
     width: 100%;
     padding: 8px;
   }
@@ -1300,30 +1299,30 @@ form.sign-in-form {
     bottom: 76%;
     left: 50%;
   }
-  
+
   .signin-signup {
     top: 93%;
     width: 90%;
   }
-  
+
   .title {
     font-size: 1.7rem;
   }
-  
+
   .panel h3 {
     font-size: 1.15rem;
   }
-  
+
   .btn.transparent {
     width: 105px;
     height: 34px;
     font-size: 0.7rem;
   }
-  
+
   .registration-progress {
     gap: 10px;
   }
-  
+
   .form-actions {
     gap: 15px;
   }
@@ -1337,20 +1336,20 @@ form.sign-in-form {
     bottom: 74%;
     left: 50%;
   }
-  
+
   .signin-signup {
     top: 94%;
     width: 85%;
   }
-  
+
   .title {
     font-size: 1.8rem;
   }
-  
+
   .panel h3 {
     font-size: 1.2rem;
   }
-  
+
   .btn.transparent {
     width: 110px;
     height: 36px;
@@ -1366,20 +1365,20 @@ form.sign-in-form {
     left: 30%;
     bottom: 70%;
   }
-  
+
   .signin-signup {
     width: 70%;
     top: 90%;
   }
-  
+
   .panel {
     padding: 2rem 5%;
   }
-  
+
   .panel .content {
     padding-right: 10%;
   }
-  
+
   .image {
     width: 70%;
   }
@@ -1391,12 +1390,12 @@ form.sign-in-form {
     width: 1800px;
     height: 1800px;
   }
-  
+
   .signin-signup {
     width: 60%;
     left: 70%;
   }
-  
+
   .panel {
     padding: 2.5rem 10%;
   }
@@ -1409,7 +1408,7 @@ form.sign-in-form {
     width: 50%;
     left: 75%;
   }
-  
+
   .panel {
     padding: 3rem 17% 2rem 12%;
   }
@@ -1420,19 +1419,19 @@ form.sign-in-form {
   .container-auth::before {
     bottom: 85%;
   }
-  
+
   .signin-signup {
     top: 85%;
   }
-  
+
   .panel .content {
     padding: 0;
   }
-  
+
   .panel p {
     display: none;
   }
-  
+
   .image {
     display: none;
   }
@@ -1443,28 +1442,26 @@ form.sign-in-form {
   .container-auth {
     min-height: 120vh;
   }
-  
+
   .signin-signup {
     top: 60%;
   }
-  
+
   .panels-container {
     grid-template-rows: 1fr 1fr;
   }
-  
+
   .left-panel {
     grid-row: 1 / 2;
   }
-  
+
   .right-panel {
     grid-row: 2 / 3;
   }
 }
 
 /* High Density Displays (Retina) */
-@media 
-(-webkit-min-device-pixel-ratio: 2), 
-(min-resolution: 192dpi) { 
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   /* You can add higher resolution assets here if needed */
   .btn {
     border-width: 0.5px;
@@ -1478,7 +1475,7 @@ form.sign-in-form {
   .auth-home-link {
     display: none;
   }
-  
+
   .signin-signup {
     position: relative;
     top: auto;
@@ -1487,7 +1484,7 @@ form.sign-in-form {
     width: 100%;
     margin: 0 auto;
   }
-  
+
   form {
     padding: 2rem;
     box-shadow: none;
@@ -1522,7 +1519,6 @@ form.sign-in-form {
     flex-direction: column;
   }
 }
-
 
 /* Upload Button Fixes */
 .upload-section input[type="file"] {
@@ -1568,19 +1564,22 @@ form.sign-in-form {
   width: 100% !important;
 }
 
-.camera-container, .captured-image {
+.camera-container,
+.captured-image {
   width: 100% !important;
   max-width: 100% !important;
   margin: 10px 0 !important;
 }
 
-.camera-feed, .captured-image img {
+.camera-feed,
+.captured-image img {
   width: 100% !important;
   height: auto !important;
   border-radius: 10px !important;
 }
 
-.btn-capture, .btn-retake {
+.btn-capture,
+.btn-retake {
   width: 100% !important;
   max-width: 200px !important;
   margin: 10px auto !important;
@@ -1605,7 +1604,9 @@ form.sign-in-form {
   margin-top: 20px !important;
 }
 
-.btn-prev, .btn-next, .btn-submit {
+.btn-prev,
+.btn-next,
+.btn-submit {
   width: 100% !important;
   max-width: 150px !important;
   margin: 0 auto !important;
@@ -1616,16 +1617,18 @@ form.sign-in-form {
   .document-upload {
     flex-direction: column !important;
   }
-  
+
   .upload-section {
     margin-bottom: 15px !important;
   }
-  
+
   .form-actions {
     flex-direction: column !important;
   }
-  
-  .btn-prev, .btn-next, .btn-submit {
+
+  .btn-prev,
+  .btn-next,
+  .btn-submit {
     max-width: 100% !important;
   }
 }
@@ -1693,9 +1696,26 @@ form.sign-in-form {
   display: block !important;
 }
 
-.file-preview img {
+/* .file-preview img {
   max-width: 100% !important;
   max-height: 150px !important;
   border-radius: 8px !important;
   border: 1px solid var(--input-icon) !important;
+} */
+
+.file-preview img {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+  display: block;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-step {
+  /* margin-top: 10px; */
+  max-height: 90vh;
+  overflow-y: auto;
+  padding-right: 10px; /* to avoid hidden scrollbar */
 }
