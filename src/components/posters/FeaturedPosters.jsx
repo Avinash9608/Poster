@@ -469,7 +469,7 @@ const CustomizeForm = ({ template, onClose, user, updatePosters }) => {
         <>
           <h3>Customize: {template?.title || "Poster"}</h3>
 
-          <form
+          <form className="FormOverlayx"
             onSubmit={(e) => {
               e.preventDefault();
               generatePoster();

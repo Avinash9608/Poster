@@ -186,6 +186,27 @@ body {
   color: #7f8c8d;
   font-size: 1rem;
 }
+form .mmyformsec {
+  border: 2px solid rgb(239, 237, 238);
+  width: 28rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto !important;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(5px);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transform: scale(1); /* default scale */
+  padding: 2rem;
+}
+.container {
+  background: linear-gradient(to right, #fff 60%, #fff0f5 100%) !important;
+}
+form .mmyformsec:hover {
+  box-shadow: 0 12px 20px rgba(232, 18, 114, 0.2); /* pinkish shadow only at bottom */
+  transform: scale(1.02);
+}
 
 .upload-placeholder .upload-icon {
   width: 60px;
@@ -587,6 +608,20 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
   margin-bottom: 10px;
+}
+
+.FormOverlay{
+
+}
+
+.templates-grid{
+  display: flex !important;
+  justify-content: space-between;
+}
+.action-buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .poster-thumbnail:hover .thumbnail-preview,

@@ -63,6 +63,8 @@ const RegisterForm = () => {
   };
 
   return (
+    <>
+    
     <form onSubmit={handleSubmit} className="space-y-6">
       {(formError || error) && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
@@ -78,7 +80,7 @@ const RegisterForm = () => {
         onChange={handleChange}
         placeholder="Enter your full name"
         required
-      />
+        />
       
       <Input
         label="Email Address"
@@ -89,7 +91,7 @@ const RegisterForm = () => {
         onChange={handleChange}
         placeholder="Enter your email"
         required
-      />
+        />
       
       <Input
         label="Password"
@@ -100,7 +102,7 @@ const RegisterForm = () => {
         onChange={handleChange}
         placeholder="Create a password"
         required
-      />
+        />
       
       <Input
         label="Confirm Password"
@@ -111,14 +113,14 @@ const RegisterForm = () => {
         onChange={handleChange}
         placeholder="Confirm your password"
         required
-      />
+        />
       
       <div>
         <Button
           type="submit"
           className="w-full"
           disabled={isLoading}
-        >
+          >
           {isLoading ? 'Creating Account...' : 'Create Account'}
         </Button>
       </div>
@@ -132,6 +134,7 @@ const RegisterForm = () => {
         </p>
       </div>
     </form>
+</>
   );
 };
 

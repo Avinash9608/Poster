@@ -146,11 +146,13 @@
 }
 
 .search-workshop button {
-  background: var(--primary-500, #3b82f6);
+  background: var(--primary-500, #c2185b);
   background: linear-gradient(
-    var(--primary-400, #60a5fa),
-    var(--primary-500, #3b82f6)
+    var(--primary-400, #d81b60),
+    var(--primary-500, #880e4f)
   );
+
+
   box-sizing: border-box;
   border: 1px solid var(--primary-600, #2563eb);
   border-left: none;
@@ -179,10 +181,10 @@
 
 .search-workshop button:hover,
 .search-workshop button:focus {
-  background: var(--primary-600, #2563eb);
+  background: var(--primary-600, #e60c6a);
   background: linear-gradient(
-    var(--primary-500, #3b82f6),
-    var(--primary-600, #2563eb)
+    var(--primary-500, #e60c6a),
+    var(--primary-600, #e60c6a)
   );
   color: #fff;
   outline: none;
@@ -191,10 +193,10 @@
 }
 
 .search-workshop button:active {
-  background: var(--primary-700, #1d4ed8);
+  background: var(--primary-700, #f31c79);
   background: linear-gradient(
-    var(--primary-600, #2563eb),
-    var(--primary-700, #1d4ed8)
+    var(--primary-600, #f31c79),
+    var(--primary-700, #f31c79)
   );
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.1);
   transform: translateY(1px);
@@ -233,20 +235,20 @@
 
 .category-btn:hover {
   background: var(--primary-50, #eff6ff);
-  border-color: var(--primary-300, #93c5fd);
-  color: var(--primary-600, #2563eb);
+  border-color: var(--primary-300, #ec73a5);
+  color: var(--primary-600, #fe60d9);
   transform: translateY(-1px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 .category-btn.active {
-  background: var(--primary-500, #3b82f6);
+  background: var(--primary-500, #e1277b);
   background: linear-gradient(
     135deg,
-    var(--primary-400, #60a5fa),
-    var(--primary-600, #2563eb)
+    var(--primary-400, #e1277b),
+    var(--primary-600, #e1277b)
   );
-  border-color: var(--primary-600, #2563eb);
+  border-color: var(--primary-600, #30343e);
   color: #fff;
   box-shadow: 0 3px 8px rgba(59, 130, 246, 0.3);
   font-weight: 600;

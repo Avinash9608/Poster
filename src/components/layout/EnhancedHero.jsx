@@ -53,17 +53,17 @@ const EnhancedHero = ({
       transition: "transform 1s ease-out",
     },
     overlay: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      background:
-        "linear-gradient(135deg, rgba(30, 64, 175, 0.85) 0%, rgba(55, 48, 163, 0.85) 100%)",
-      zIndex: 2,
-      opacity: isLoaded ? 1 : 0,
-      transition: "opacity 1s ease-out",
-    },
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "linear-gradient(135deg, rgba(240, 144, 171, 0.85) 0%, rgba(226, 83, 136, 0.85) 100%)",
+  zIndex: 2,
+  opacity: isLoaded ? 1 : 0,
+  transition: "opacity 1s ease-out",
+},
+
     content: {
       position: "relative",
       zIndex: 3,
@@ -98,7 +98,9 @@ const EnhancedHero = ({
       flexWrap: "wrap",
     },
     primaryButton: {
-      background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+    background: "linear-gradient(135deg, #d81b60 0%, #ad1457 100%)",
+
+
       color: "white",
       padding: "1rem 2rem",
       borderRadius: "50px",

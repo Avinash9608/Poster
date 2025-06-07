@@ -128,7 +128,7 @@
 .create-button {
   width: 100%;
   padding: 10px;
-  background: #4a6cf7;
+  background: #fc4a82;
   color: white;
   border: none;
   cursor: pointer;
@@ -137,7 +137,7 @@
 }
 
 .create-button:hover {
-  background: #3a5bd9;
+  background: #a41b49;
 }
 
 /* Form overlay */
@@ -147,7 +147,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(41, 98, 255, 0.8);
+  background: rgba(255, 134, 186, 0.8);
   z-index: 100;
 }
 
@@ -163,8 +163,11 @@
 .customize-form {
   background: white;
   border-radius: 10px;
-  padding: 25px;
-  width: 400px;
+  padding: 15px;
+  width: 450px;
+ 
+  display: flex;
+  flex-direction: column;
   max-width: 90vw;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
@@ -212,7 +215,7 @@
 .submit-button {
   width: 100%;
   padding: 12px;
-  background: #4a6cf7;
+  background: #f74aa3;
   color: white;
   border: none;
   border-radius: 4px;

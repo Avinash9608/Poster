@@ -8,6 +8,10 @@ import AuthPage from "./pages/AuthPage";
 import Pricing from "./components/layout/PricingTable";
 import Contact from "./components/layout/Contact";
 import About from "./components/layout/About";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+// Change this to register() to enable PWA
+serviceWorkerRegistration.register();
 function App() {
   return _jsx(AuthProvider, {
     children: _jsxs(Routes, {

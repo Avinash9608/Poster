@@ -123,19 +123,23 @@ const HomeNavbar = () => {
 
         <ul className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
           <li>
-            <div
-              className="nav-item active"
-              onClick={() => handleNavigation("/")}
-            >
+            <div className="nav-item" onClick={() => handleNavigation("/")}>
               Home
             </div>
           </li>
           <li>
             <div
               className="nav-item"
-              onClick={() => handleNavigation("/pricing")}
+              onClick={() => {
+                if (isLoggedIn) {
+                  window.location.href =
+                    "https://publicity-poster-pro.vercel.app/";
+                } else {
+                  handleNavigation("/login");
+                }
+              }}
             >
-              Pricing
+              Poster Pro
             </div>
           </li>
           <li>
@@ -156,14 +160,16 @@ const HomeNavbar = () => {
           </li>
 
           {isLoggedIn ? (
-            <li className="user-dropdown">
-              <div className="nav-item username">
-                {username}
-                <div className="dropdown-menu">
-                  <div onClick={handleLogout}>Logout</div>
+            <>
+              <li>
+                <div className="nav-item">Hi, {username}</div>
+              </li>
+              <li>
+                <div className="nav-item" onClick={handleLogout}>
+                  Logout
                 </div>
-              </div>
-            </li>
+              </li>
+            </>
           ) : (
             <>
               <li>
@@ -176,10 +182,10 @@ const HomeNavbar = () => {
               </li>
               <li>
                 <div
-                  className="nav-item login-btn"
+                  className="nav-item"
                   onClick={() => handleNavigation("/register")}
                 >
-                  Sign Up For Free
+                  Register
                 </div>
               </li>
             </>

@@ -77,13 +77,21 @@ const MainNavbar = () => {
           <li>
             <div
               className={`nav-item ${
-                location.pathname === "/pricing" ? "active" : ""
+                location.pathname === "/poster-pro" ? "active" : ""
               }`}
-              onClick={() => handleNavigation("/pricing")}
+              onClick={() => {
+                if (isAuthenticated) {
+                  window.location.href =
+                    "https://publicity-poster-pro.vercel.app/";
+                } else {
+                  handleNavigation("/login");
+                }
+              }}
             >
-              Pricing
+              Poster Pro
             </div>
           </li>
+
           <li>
             <div
               className={`nav-item ${

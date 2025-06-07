@@ -3,6 +3,10 @@ import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 
 // Import pages
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
+// Change this to register() to enable PWA
+serviceWorkerRegistration.register();
 import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import Pricing from "./components/layout/PricingTable";

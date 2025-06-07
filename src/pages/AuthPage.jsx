@@ -752,7 +752,8 @@ const AuthPage = () => {
         <div className="forms-container">
           <div className="signin-signup">
             {/* Login Form */}
-            <form className="sign-in-form" onSubmit={handleLoginSubmit}>
+            <form className="sign-in-form FormOverlay " onSubmit={handleLoginSubmit}>
+              <div className="mmyformsec">
               <h2 className="title">Login</h2>
               <div className="input-field">
                 <i className="fas fa-envelope"></i>
@@ -763,7 +764,7 @@ const AuthPage = () => {
                   value={loginData.email}
                   onChange={handleLoginChange}
                   required
-                />
+                  />
               </div>
               <div className="input-field">
                 <i className="fas fa-lock"></i>
@@ -774,7 +775,7 @@ const AuthPage = () => {
                   value={loginData.password}
                   onChange={handleLoginChange}
                   required
-                />
+                  />
               </div>
               <button type="submit" className="btn solid" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign in"}
@@ -795,17 +796,21 @@ const AuthPage = () => {
                   <p>{statusMessage.text}</p>
                 </div>
               )}
+              
+              </div>
             </form>
 
             {/* Registration Form */}
-            <form className="sign-up-form" onSubmit={handleRegisterSubmit}>
+            <form className="sign-up-form FormOverlay" onSubmit={handleRegisterSubmit}>
+               <div className="mmyformsec">
+
               <div className="registration-progress">
                 {[1, 2, 3, 4].map((step) => (
                   <div
-                    key={step}
-                    className={`progress-step ${
-                      currentStep === step ? "active" : ""
-                    } ${currentStep > step ? "completed" : ""}`}
+                  key={step}
+                  className={`progress-step ${
+                    currentStep === step ? "active" : ""
+                  } ${currentStep > step ? "completed" : ""}`}
                   >
                     <div className="step-number">{step}</div>
                   </div>
@@ -826,7 +831,7 @@ const AuthPage = () => {
                       value={registerData.username}
                       onChange={handleRegisterChange}
                       className={errors.username ? "error" : ""}
-                    />
+                      />
                     {errors.username && (
                       <span className="error-message">{errors.username}</span>
                     )}
@@ -841,7 +846,7 @@ const AuthPage = () => {
                       value={registerData.email}
                       onChange={handleRegisterChange}
                       className={errors.email ? "error" : ""}
-                    />
+                      />
                     {errors.email && (
                       <span className="error-message">{errors.email}</span>
                     )}
@@ -856,7 +861,7 @@ const AuthPage = () => {
                       value={registerData.password}
                       onChange={handleRegisterChange}
                       className={errors.password ? "error" : ""}
-                    />
+                      />
                     {errors.password && (
                       <span className="error-message">{errors.password}</span>
                     )}
@@ -871,7 +876,7 @@ const AuthPage = () => {
                       value={registerData.confirmPassword}
                       onChange={handleRegisterChange}
                       className={errors.confirmPassword ? "error" : ""}
-                    />
+                      />
                     {errors.confirmPassword && (
                       <span className="error-message">
                         {errors.confirmPassword}
@@ -884,7 +889,7 @@ const AuthPage = () => {
                       type="button"
                       onClick={nextStep}
                       className="btn-next"
-                    >
+                      >
                       Next: KYC Details
                     </button>
                   </div>
@@ -905,7 +910,7 @@ const AuthPage = () => {
                       value={registerData.aadhaarNumber}
                       onChange={handleRegisterChange}
                       className={errors.aadhaarNumber ? "error" : ""}
-                    />
+                      />
                     {errors.aadhaarNumber && (
                       <span className="error-message">
                         {errors.aadhaarNumber}
@@ -922,7 +927,7 @@ const AuthPage = () => {
                       value={registerData.dateOfBirth}
                       onChange={handleRegisterChange}
                       className={errors.dateOfBirth ? "error" : ""}
-                    />
+                      />
                     {errors.dateOfBirth && (
                       <span className="error-message">
                         {errors.dateOfBirth}
@@ -938,7 +943,7 @@ const AuthPage = () => {
                         value="male"
                         checked={registerData.gender === "male"}
                         onChange={handleRegisterChange}
-                      />
+                        />
                       Male
                     </label>
                     <label>
@@ -948,7 +953,7 @@ const AuthPage = () => {
                         value="female"
                         checked={registerData.gender === "female"}
                         onChange={handleRegisterChange}
-                      />
+                        />
                       Female
                     </label>
                     <label>
@@ -958,7 +963,7 @@ const AuthPage = () => {
                         value="other"
                         checked={registerData.gender === "other"}
                         onChange={handleRegisterChange}
-                      />
+                        />
                       Other
                     </label>
                     {errors.gender && (
@@ -975,7 +980,7 @@ const AuthPage = () => {
                       value={registerData.mobileNumber}
                       onChange={handleRegisterChange}
                       className={errors.mobileNumber ? "error" : ""}
-                    />
+                      />
                     {errors.mobileNumber && (
                       <span className="error-message">
                         {errors.mobileNumber}
@@ -989,7 +994,7 @@ const AuthPage = () => {
                       name="documentType"
                       value={registerData.documentType}
                       onChange={handleRegisterChange}
-                    >
+                      >
                       <option value="aadhaar">Aadhaar Card</option>
                       <option value="passport">Passport</option>
                       <option value="voter">Voter ID</option>
@@ -1003,14 +1008,14 @@ const AuthPage = () => {
                       type="button"
                       onClick={prevStep}
                       className="btn-prev"
-                    >
+                      >
                       Back
                     </button>
                     <button
                       type="button"
                       onClick={nextStep}
                       className="btn-next"
-                    >
+                      >
                       Next: Document Upload
                     </button>
                   </div>
@@ -1031,17 +1036,17 @@ const AuthPage = () => {
                         accept="image/*,.pdf"
                         onChange={handleRegisterChange}
                         required
-                      />
+                        />
                       {registerData.documentFront && (
                         <div className="file-preview">
                           {registerData.documentFront.type?.startsWith(
                             "image/"
                           ) ? (
                             <img
-                              src={URL.createObjectURL(
-                                registerData.documentFront
-                              )}
-                              alt="Document front"
+                            src={URL.createObjectURL(
+                              registerData.documentFront
+                            )}
+                            alt="Document front"
                             />
                           ) : (
                             <span>{registerData.documentFront.name}</span>
@@ -1062,17 +1067,17 @@ const AuthPage = () => {
                         name="documentBack"
                         accept="image/*,.pdf"
                         onChange={handleRegisterChange}
-                      />
+                        />
                       {registerData.documentBack && (
                         <div className="file-preview">
                           {registerData.documentBack.type?.startsWith(
                             "image/"
                           ) ? (
                             <img
-                              src={URL.createObjectURL(
-                                registerData.documentBack
-                              )}
-                              alt="Document back"
+                            src={URL.createObjectURL(
+                              registerData.documentBack
+                            )}
+                            alt="Document back"
                             />
                           ) : (
                             <span>{registerData.documentBack.name}</span>
@@ -1101,13 +1106,13 @@ const AuthPage = () => {
                             autoPlay
                             playsInline
                             className="camera-feed"
-                          ></video>
+                            ></video>
                         </div>
                         <button
                           type="button"
                           onClick={captureSelfie}
                           className="btn-capture"
-                        >
+                          >
                           Capture Selfie
                         </button>
                       </>
@@ -1120,7 +1125,7 @@ const AuthPage = () => {
                           type="button"
                           onClick={handleRetake}
                           className="btn-retake"
-                        >
+                          >
                           Retake
                         </button>
                       </>
@@ -1128,7 +1133,7 @@ const AuthPage = () => {
                     <canvas
                       ref={canvasRef}
                       style={{ display: "none" }}
-                    ></canvas>
+                      ></canvas>
                   </div>
 
                   <div className="form-actions">
@@ -1136,14 +1141,14 @@ const AuthPage = () => {
                       type="button"
                       onClick={prevStep}
                       className="btn-prev"
-                    >
+                      >
                       Back
                     </button>
                     {registerData.documentFront && capturedImage && (
                       <button
-                        type="button"
-                        onClick={nextStep}
-                        className="btn-next"
+                      type="button"
+                      onClick={nextStep}
+                      className="btn-next"
                       >
                         Next: Review & Submit
                       </button>
@@ -1206,13 +1211,13 @@ const AuthPage = () => {
                         name="acceptTerms"
                         checked={registerData.acceptTerms}
                         onChange={handleRegisterChange}
-                      />
+                        />
                       <span className="checkmark"></span>I agree to the{" "}
                       <a
                         href="/terms"
                         target="_blank"
                         rel="noopener noreferrer"
-                      >
+                        >
                         Terms and Conditions
                       </a>
                     </label>
@@ -1228,14 +1233,14 @@ const AuthPage = () => {
                       type="button"
                       onClick={prevStep}
                       className="btn-prev"
-                    >
+                      >
                       Back
                     </button>
                     <button
                       type="submit"
                       className="btn-submit"
                       disabled={isLoading}
-                    >
+                      >
                       {isLoading ? "Submitting..." : "Complete Registration"}
                     </button>
                   </div>
@@ -1247,6 +1252,7 @@ const AuthPage = () => {
                   )}
                 </div>
               )}
+              </div>
             </form>
           </div>
         </div>
@@ -1260,7 +1266,7 @@ const AuthPage = () => {
               <button
                 className="btn transparent"
                 onClick={() => toggleMode("signup")}
-              >
+                >
                 Register
               </button>
             </div>
